@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+    <h2>Student Record</h2>
+    @*Button Add New*@
+    @Html.ActionLink("Add New", "Student", "Student",
+    new { @class = "btn btn-sm btn-primary" })
+    <br />
+    <br />
+    @*List of Employee*@
+    <table class="table table-bordered table-hover" id="myDataTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>State</th>
+                <th>Country</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody class="tbody">
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(function () {
+        loadData();
+    });
+    function loadData() {
+        $.ajax({
+            url: "/Student/List",
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                var html = '';
+                $.each(result, function (key, item) {
+                    html += '<tr><td>' + item.ID + '</td>';
+                    html += '<td>' + item.Name + '</td>';
+                    html += '<td>' + item.Age + '</td>';
+                    html += '<td>' + item.State + '</td>';
+                    html += '<td>' + item.Country + '</td>';
+                    html += '<td><a href="#" onclick="return getbyID('
+                        + item.ID + ')" class="btn btn-primary">Edit</a><a href="#" onclick="Delele('
+                        + item.ID + ')" class="btn btn-danger">Delete</a></td>';
+                    html += '</tr>';
+                });
+                $('.tbody').html(html);
+            }
+        });
+    }
+</script>
+

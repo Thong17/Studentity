@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Student";
+}
+
+<h2>Student</h2>
+<div class="modal-body">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="age">Age</label>
+        <input type="text" id="age" placeholder="Age" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="state">State</label>
+        <input type="text" id="state" placeholder="State" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="country">Country</label>
+        <input type="text" id="country" placeholder="Country" class="form-control" />
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Add</button>
+</div>
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script>
+    function Add() {
+        var stdObj = {
+            Name: $("#name").val(),
+            Age: $("#age").val(),
+            State: $("#state").val(),
+            Country: $("#country").val()
+        };
+        $.ajax({
+            url: "/Student/Add",
+            data: JSON.stringify(stdObj),
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                window.location.href = "Index";
+            }
+        });
+    }
+</script>
